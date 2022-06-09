@@ -7,7 +7,13 @@ export const deployNFTContract = async (
   showLog: boolean = false
 ) => {
   const nftContractFactory = new LendableToken__factory(owner);
-  const nftContract = await nftContractFactory.deploy("ipfs://test/", 10, 100);
+  const nftContract = await nftContractFactory.deploy(
+    "ipfs://test/",
+    10,
+    100,
+    true,
+    true
+  );
   await nftContract.deployed();
 
   if (showLog) console.log("NFTContract deployed to:", nftContract.address);

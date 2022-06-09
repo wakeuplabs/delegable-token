@@ -13,10 +13,58 @@ contract LendableToken is ERC4907Extension {
     uint256 public _maxSupply = 0;
     string public _baseUri;
 
-    constructor(string memory baseUri, uint256 price, uint256 maxSupply) ERC4907Extension("LendableToken", "LT721", true, true) {
+    bool private _allowTransferBeforeUserExpired;
+    bool private _allowChangeUserBeforeUserExpired;
+
+    constructor(
+        string memory baseUri,
+        uint256 price,
+        uint256 maxSupply,
+        bool allowTransferBeforeUserExpired,
+        bool allowChangeUserBeforeUserExpired
+    ) ERC4907Extension("LendableToken", "LT721") {
         _price = price;
         _maxSupply = maxSupply;
         _baseUri = baseUri;
+
+        _allowTransferBeforeUserExpired = allowTransferBeforeUserExpired;
+        _allowChangeUserBeforeUserExpired = allowChangeUserBeforeUserExpired;
+    }
+
+    function changeConfiguration(
+        bool allowTransferBeforeUserExpired,
+        bool allowChangeUserBeforeUserExpired
+    ) external onlyOwner {
+        _allowTransferBeforeUserExpired = allowTransferBeforeUserExpired;
+        _allowChangeUserBeforeUserExpired = allowChangeUserBeforeUserExpired;
+    }
+
+    function setUser(
+        uint256 tokenId,
+        address user,
+        uint256 expires
+    ) public virtual override {
+        require(
+            _allowChangeUserBeforeUserExpired ||
+                this.userOf(tokenId) == address(0),
+            "token not available"
+        );
+
+        super.setUser(tokenId, user, expires);
+    }
+
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal virtual override {
+        require(
+            _allowTransferBeforeUserExpired ||
+                this.userOf(tokenId) == address(0),
+            "token not available"
+        );
+
+        super._beforeTokenTransfer(from, to, tokenId);
     }
 
     // @notice Mints new NFT to msg.sender
@@ -38,13 +86,13 @@ contract LendableToken is ERC4907Extension {
     function changePrice(uint256 price) external onlyOwner {
         _price = price;
     }
-    
+
     function withdraw(address payable recipient) external onlyOwner {
         uint256 balance = address(this).balance;
         recipient.transfer(balance);
     }
 
-    function _currentSupply() external view returns (uint256) {
+    function currentSupply() external view returns (uint256) {
         return _tokenIds.current();
     }
 
@@ -52,7 +100,7 @@ contract LendableToken is ERC4907Extension {
         _baseUri = newBaseUri;
     }
 
-    function _baseURI() override internal view virtual returns (string memory) {
+    function _baseURI() internal view virtual override returns (string memory) {
         return _baseUri;
     }
 }

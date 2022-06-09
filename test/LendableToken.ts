@@ -161,7 +161,7 @@ describe("LendableToken", function () {
 
     const price2 = await nftContractAsBuyer._price();
     const maxSupply2 = await nftContractAsBuyer._maxSupply();
-    
+
     expect(price1, "price").equal(10);
     expect(maxSupply1, "max supply").equal(100);
     expect(price2, "price").equal(10);
@@ -176,9 +176,9 @@ describe("LendableToken", function () {
   });
 
   it("Get current supply", async function () {
-    const supply1 = await nftContractAsBuyer._currentSupply()
-    const tokenID = await mintNFT(nftContractAsBuyer, NFT_PRICE);
-    const supply2 = await nftContractAsBuyer._currentSupply()
+    const supply1 = await nftContractAsBuyer.currentSupply();
+    await mintNFT(nftContractAsBuyer, NFT_PRICE);
+    const supply2 = await nftContractAsBuyer.currentSupply();
     expect(supply2, "Current Supply Increment").equal(+supply1 + 1);
   });
 });
