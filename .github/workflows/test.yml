@@ -16,14 +16,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: 'npm'
+          cache: "npm"
 
       - name: Install dependencies
         run: npm install
 
       - name: Build
-        run: npx hardhat run scripts/deploy.ts
+        run: npm run compile
 
       - name: Test
-        run: npx hardhat test
-
+        run: npm run test
