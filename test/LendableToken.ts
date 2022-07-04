@@ -22,7 +22,6 @@ describe("LendableToken", function () {
 
   let nftContractAsBuyer: LendableToken;
   let nftContractAsOwner: LendableToken;
-
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
@@ -180,5 +179,60 @@ describe("LendableToken", function () {
     await mintNFT(nftContractAsBuyer, NFT_PRICE);
     const supply2 = await nftContractAsBuyer.currentSupply();
     expect(supply2, "Current Supply Increment").equal(+supply1 + 1);
+  });
+});
+
+describe("LendableToken allowChangeUserBeforeUserExpired=False", function () {
+  let owner: Signer, nftBuyer: Signer, user1: Signer, user2: Signer;
+
+  let nftContractAsBuyer: LendableToken;
+  let nftContractAsOwner: LendableToken;
+  this.beforeEach(async () => {
+    [owner, nftBuyer, user1, user2] = await ethers.getSigners();
+
+    nftContractAsOwner = await deployNFTContract(owner, false, false);
+
+    nftContractAsBuyer = nftContractAsOwner.connect(nftBuyer);
+  });
+
+  it("Allows to lend the token to Owner", async function () {
+    const tokenID = await mintNFT(nftContractAsBuyer, NFT_PRICE);
+
+    const nftOwnerAddr = await nftBuyer.getAddress();
+    const user1Addr = await user1.getAddress();
+    const user2Addr = await user2.getAddress();
+
+    const lendForTenMinutes = await getTimestamp(10);
+
+    const tx = await nftContractAsBuyer.setUser(
+      tokenID,
+      user1Addr,
+      lendForTenMinutes
+    );
+    const res3 = await tx.wait();
+
+    const firstUser = await nftContractAsBuyer.userOf(tokenID);
+    expect(firstUser, "user").equal(user1Addr);
+    try {
+      const tx2 = await nftContractAsBuyer.setUser(
+        tokenID,
+        user2Addr,
+        lendForTenMinutes
+      );
+    } catch (err: any) {
+      const isTokenNotAviableerror = err.reason
+        .toString()
+        .includes("token not available");
+      if (!isTokenNotAviableerror) {
+        throw err;
+      }
+    }
+
+    const resultUser = await nftContractAsBuyer.userOf(tokenID);
+    const resultOwner = await nftContractAsBuyer.ownerOf(tokenID);
+
+    expect(resultUser, "user").not.equal(user2Addr);
+    expect(resultUser, "user").equal(firstUser);
+    expect(resultOwner, "owner").equal(nftOwnerAddr);
   });
 });

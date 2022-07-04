@@ -4,7 +4,8 @@ import { LendableToken, LendableToken__factory } from "../typechain";
 
 export const deployNFTContract = async (
   owner: Signer,
-  showLog: boolean = false
+  showLog: boolean = false,
+  allowChangeUserBeforeUserExpired: boolean = true
 ) => {
   const nftContractFactory = new LendableToken__factory(owner);
   const nftContract = await nftContractFactory.deploy(
@@ -12,7 +13,7 @@ export const deployNFTContract = async (
     10,
     100,
     true,
-    true
+    allowChangeUserBeforeUserExpired
   );
   await nftContract.deployed();
 
