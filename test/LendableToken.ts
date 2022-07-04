@@ -190,7 +190,7 @@ describe("LendableToken allowChangeUserBeforeUserExpired=False", function () {
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
-    nftContractAsOwner = await deployNFTContract(owner, false, true);
+    nftContractAsOwner = await deployNFTContract(owner, false, false);
 
     nftContractAsBuyer = nftContractAsOwner.connect(nftBuyer);
   });
