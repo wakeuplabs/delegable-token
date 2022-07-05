@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./ERC4907Extension.sol";
 
-contract LendableToken is ERC4907Extension {
+contract DelegableToken is ERC4907Extension {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -13,8 +13,8 @@ contract LendableToken is ERC4907Extension {
     uint256 public _maxSupply = 0;
     string public _baseUri;
 
-    bool private _allowTransferBeforeUserExpired;
-    bool private _allowChangeUserBeforeUserExpired;
+    bool public _allowTransferBeforeUserExpired;
+    bool public _allowChangeUserBeforeUserExpired;
 
     constructor(
         string memory baseUri,
@@ -22,7 +22,7 @@ contract LendableToken is ERC4907Extension {
         uint256 maxSupply,
         bool allowTransferBeforeUserExpired,
         bool allowChangeUserBeforeUserExpired
-    ) ERC4907Extension("LendableToken", "LT721") {
+    ) ERC4907Extension("DelegableToken", "DT721") {
         _price = price;
         _maxSupply = maxSupply;
         _baseUri = baseUri;
