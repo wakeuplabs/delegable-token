@@ -1,5 +1,5 @@
 {
-  "name": "@wakeuplabs/minting-smartcontract",
+  "name": "@wakeuplabs/delegable-token",
   "version": "1.0.1",
   "description": "",
   "main": "typechain/index.ts",
@@ -17,7 +17,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wakeupdao/minting-smartcontract"
+    "url": "git+https://github.com/wakeupdao/delegable-token"
   },
   "keywords": [
     "nft",

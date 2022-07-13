@@ -1,13 +1,6 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-//   __        __    _        _   _
-//   \ \      / /_ _| | _____| | | |_ __
-//    \ \ /\ / / _` | |/ / _ \ | | | '_ \
-//     \ V  V / (_| |   <  __/ |_| | |_) |
-//      \_/\_/ \__,_|_|\_\___|\___/| .__/
-//       2022                      |_|
-
 interface IERC4907 {
     // Logged when the user of a NFT is changed or expires is changed
     /// @notice Emitted when the `user` of an NFT or the `expires` of the `user` is changed
