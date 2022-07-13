@@ -1,16 +1,30 @@
 {
-  "name": "rent-with-collateral-poc",
-  "version": "1.0.0",
+  "name": "@wakeuplabs/delegable-token",
+  "version": "1.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "typechain/index.ts",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
     "dev": "hardhat run --network localhost scripts/deploy.ts",
     "deploy-testnet": "hardhat run --network optimism_kovan scripts/deploy.ts"
   },
-  "keywords": [],
-  "author": "",
+  "files": [
+    "typechain/*.ts",
+    "typechain/**/*.ts",
+    "artifacts/*",
+    "artifacts/**/*"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wakeupdao/delegable-token"
+  },
+  "keywords": [
+    "nft",
+    "delegable",
+    "mint"
+  ],
+  "author": "WakeUp",
   "license": "ISC",
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.5",

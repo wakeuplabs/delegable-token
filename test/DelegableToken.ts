@@ -3,7 +3,7 @@ import { constants, Signer } from "ethers";
 import { ethers } from "hardhat";
 import chaiAsPromised from "chai-as-promised";
 import { deployNFTContract, mintNFT } from "../scripts/utils";
-import { LendableToken } from "../typechain";
+import { DelegableToken } from "../typechain";
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -17,11 +17,11 @@ const getTimestamp = async (addMinutes: number = 0) => {
   return timestamp + addMinutes * 60;
 };
 
-describe("LendableToken", function () {
+describe("DelegableToken", function () {
   let owner: Signer, nftBuyer: Signer, user1: Signer, user2: Signer;
 
-  let nftContractAsBuyer: LendableToken;
-  let nftContractAsOwner: LendableToken;
+  let nftContractAsBuyer: DelegableToken;
+  let nftContractAsOwner: DelegableToken;
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
@@ -182,11 +182,11 @@ describe("LendableToken", function () {
   });
 });
 
-describe("LendableToken allowChangeUserBeforeUserExpired=False", function () {
+describe("DelegableToken allowChangeUserBeforeUserExpired=False", function () {
   let owner: Signer, nftBuyer: Signer, user1: Signer, user2: Signer;
 
-  let nftContractAsBuyer: LendableToken;
-  let nftContractAsOwner: LendableToken;
+  let nftContractAsBuyer: DelegableToken;
+  let nftContractAsOwner: DelegableToken;
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
@@ -209,21 +209,17 @@ describe("LendableToken allowChangeUserBeforeUserExpired=False", function () {
       user1Addr,
       lendForTenMinutes
     );
-    const res3 = await tx.wait();
+    await tx.wait();
 
     const firstUser = await nftContractAsBuyer.userOf(tokenID);
     expect(firstUser, "user").equal(user1Addr);
     try {
-      const tx2 = await nftContractAsBuyer.setUser(
-        tokenID,
-        user2Addr,
-        lendForTenMinutes
-      );
+      await nftContractAsBuyer.setUser(tokenID, user2Addr, lendForTenMinutes);
     } catch (err: any) {
-      const isTokenNotAviableerror = err.reason
+      const isTokenNotAvailableError = err.reason
         .toString()
         .includes("token not available");
-      if (!isTokenNotAviableerror) {
+      if (!isTokenNotAvailableError) {
         throw err;
       }
     }
