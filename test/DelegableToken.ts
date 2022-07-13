@@ -209,21 +209,17 @@ describe("DelegableToken allowChangeUserBeforeUserExpired=False", function () {
       user1Addr,
       lendForTenMinutes
     );
-    const res3 = await tx.wait();
+    await tx.wait();
 
     const firstUser = await nftContractAsBuyer.userOf(tokenID);
     expect(firstUser, "user").equal(user1Addr);
     try {
-      const tx2 = await nftContractAsBuyer.setUser(
-        tokenID,
-        user2Addr,
-        lendForTenMinutes
-      );
+      await nftContractAsBuyer.setUser(tokenID, user2Addr, lendForTenMinutes);
     } catch (err: any) {
-      const isTokenNotAviableerror = err.reason
+      const isTokenNotAvailableError = err.reason
         .toString()
         .includes("token not available");
-      if (!isTokenNotAviableerror) {
+      if (!isTokenNotAvailableError) {
         throw err;
       }
     }
