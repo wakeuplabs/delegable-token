@@ -9,13 +9,18 @@ export const deployNFTContract = async (
 ) => {
   const nftContractFactory = new DelegableToken__factory(owner);
   const nftContract = await nftContractFactory.deploy(
+    "DelegableToken",
+    "DT721",
     "ipfs://test/",
     10,
-    100,
-    true,
-    allowChangeUserBeforeUserExpired
+    100
   );
   await nftContract.deployed();
+
+  const tx = await nftContract.setAllowChangeUserBeforeUserExpired(
+    allowChangeUserBeforeUserExpired
+  );
+  await tx.wait();
 
   if (showLog) console.log("NFTContract deployed to:", nftContract.address);
 

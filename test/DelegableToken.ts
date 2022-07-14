@@ -117,38 +117,38 @@ describe("DelegableToken", function () {
   });
 
   it("Should get the price and the max supply for the given NFT contract", async function () {
-    const price = await nftContractAsBuyer._price();
-    const maxSupply = await nftContractAsBuyer._maxSupply();
+    const price = await nftContractAsBuyer.getPrice();
+    const maxSupply = await nftContractAsBuyer.getMaxSupply();
 
     expect(price, "price").equal(10);
     expect(maxSupply, "max supply").equal(100);
   });
 
   it("Should be able to change the max supply for the given NFT contract", async function () {
-    const initialMaxSupply = await nftContractAsOwner._maxSupply();
+    const initialMaxSupply = await nftContractAsOwner.getMaxSupply();
 
     await nftContractAsOwner.changeMaxSupply(200);
 
-    const resultMaxSupply = await nftContractAsOwner._maxSupply();
+    const resultMaxSupply = await nftContractAsOwner.getMaxSupply();
 
     expect(initialMaxSupply, "initial max supply").equal(100);
     expect(resultMaxSupply, "result max supply").equal(200);
   });
 
   it("Should be able to change the price for the given NFT contract", async function () {
-    const initialPrice = await nftContractAsOwner._price();
+    const initialPrice = await nftContractAsOwner.getPrice();
 
     await nftContractAsOwner.changePrice(20);
 
-    const resultPrice = await nftContractAsOwner._price();
+    const resultPrice = await nftContractAsOwner.getPrice();
 
     expect(initialPrice, "initial price").equal(10);
     expect(resultPrice, "result price").equal(20);
   });
 
   it("Only owner can change the price and the max supply for the given NFT contract", async function () {
-    const price1 = await nftContractAsBuyer._price();
-    const maxSupply1 = await nftContractAsBuyer._maxSupply();
+    const price1 = await nftContractAsBuyer.getPrice();
+    const maxSupply1 = await nftContractAsBuyer.getMaxSupply();
 
     await expect(
       nftContractAsBuyer.changeMaxSupply(300)
@@ -158,8 +158,8 @@ describe("DelegableToken", function () {
       nftContractAsBuyer.changePrice(300)
     ).to.eventually.rejectedWith("Ownable: caller is not the owner");
 
-    const price2 = await nftContractAsBuyer._price();
-    const maxSupply2 = await nftContractAsBuyer._maxSupply();
+    const price2 = await nftContractAsBuyer.getPrice();
+    const maxSupply2 = await nftContractAsBuyer.getMaxSupply();
 
     expect(price1, "price").equal(10);
     expect(maxSupply1, "max supply").equal(100);

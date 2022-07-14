@@ -13,7 +13,9 @@
     "typechain/*.ts",
     "typechain/**/*.ts",
     "artifacts/*",
-    "artifacts/**/*"
+    "artifacts/**/*",
+    "contracts/*",
+    "contracts/**/*"
   ],
   "repository": {
     "type": "git",

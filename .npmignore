@@ -1,6 +1,5 @@
 hardhat.config.ts
 scripts
 test
-contracts
 .github
 .vscode

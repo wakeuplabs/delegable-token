@@ -6,31 +6,20 @@ pragma solidity ^0.8.0;
 //     \ V  V / (_| |   <  __/ |_| | |_) |
 //      \_/\_/ \__,_|_|\_\___|\___/| .__/
 //                                 |_|
-//       WakeUp Labs 2022         
+//       WakeUp Labs 2022
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "./ERC4907Extension.sol";
+import "./DelegableTokenConfiguration.sol";
 
-abstract contract DelegableTokenExtension is ERC4907Extension {
-    bool public _allowTransferBeforeUserExpired;
-    bool public _allowChangeUserBeforeUserExpired;
-
-    constructor(
-        bool allowTransferBeforeUserExpired,
-        bool allowChangeUserBeforeUserExpired
-    ) ERC4907Extension("DelegableToken", "DT721") {
-        _allowTransferBeforeUserExpired = allowTransferBeforeUserExpired;
-        _allowChangeUserBeforeUserExpired = allowChangeUserBeforeUserExpired;
-    }
-
-    function changeConfiguration(
-        bool allowTransferBeforeUserExpired,
-        bool allowChangeUserBeforeUserExpired
-    ) external onlyOwner {
-        _allowTransferBeforeUserExpired = allowTransferBeforeUserExpired;
-        _allowChangeUserBeforeUserExpired = allowChangeUserBeforeUserExpired;
-    }
+abstract contract DelegableTokenExtension is
+    ERC4907Extension,
+    DelegableTokenConfiguration
+{
+    constructor(string memory name, string memory symbol)
+        ERC4907Extension(name, symbol)
+    {}
 
     function setUser(
         uint256 tokenId,

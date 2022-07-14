@@ -6,7 +6,7 @@ pragma solidity ^0.8.0;
 //     \ V  V / (_| |   <  __/ |_| | |_) |
 //      \_/\_/ \__,_|_|\_\___|\___/| .__/
 //                                 |_|
-//       WakeUp Labs 2022         
+//       WakeUp Labs 2022
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
@@ -16,22 +16,17 @@ contract DelegableToken is DelegableTokenExtension {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    uint256 public _price = 0;
-    uint256 public _maxSupply = 0;
-    string public _baseUri;
+    uint256 private _price = 0;
+    uint256 private _maxSupply = 0;
+    string private _baseUri;
 
     constructor(
+        string memory name,
+        string memory symbol,
         string memory baseUri,
         uint256 price,
-        uint256 maxSupply,
-        bool allowTransferBeforeUserExpired,
-        bool allowChangeUserBeforeUserExpired
-    )
-        DelegableTokenExtension(
-            allowTransferBeforeUserExpired,
-            allowChangeUserBeforeUserExpired
-        )
-    {
+        uint256 maxSupply
+    ) DelegableTokenExtension(name, symbol) {
         _price = price;
         _maxSupply = maxSupply;
         _baseUri = baseUri;
@@ -72,5 +67,13 @@ contract DelegableToken is DelegableTokenExtension {
 
     function _baseURI() internal view virtual override returns (string memory) {
         return _baseUri;
+    }
+
+    function getPrice() external view returns (uint256) {
+        return _price;
+    }
+
+    function getMaxSupply() external view returns (uint256) {
+        return _maxSupply;
     }
 }
