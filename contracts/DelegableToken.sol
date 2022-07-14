@@ -5,7 +5,8 @@ pragma solidity ^0.8.0;
 //    \ \ /\ / / _` | |/ / _ \ | | | '_ \
 //     \ V  V / (_| |   <  __/ |_| | |_) |
 //      \_/\_/ \__,_|_|\_\___|\___/| .__/
-//       2022                      |_|
+//                                 |_|
+//       WakeUp Labs 2022         
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
