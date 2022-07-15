@@ -13,14 +13,11 @@ export const deployNFTContract = async (
     "DT721",
     "ipfs://test/",
     10,
-    100
-  );
-  await nftContract.deployed();
-
-  const tx = await nftContract.setAllowChangeUserBeforeUserExpired(
+    100,
+    true,
     allowChangeUserBeforeUserExpired
   );
-  await tx.wait();
+  await nftContract.deployed();
 
   if (showLog) console.log("NFTContract deployed to:", nftContract.address);
 

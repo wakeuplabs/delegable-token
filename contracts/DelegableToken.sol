@@ -25,8 +25,16 @@ contract DelegableToken is DelegableTokenExtension {
         string memory symbol,
         string memory baseUri,
         uint256 price,
-        uint256 maxSupply
-    ) DelegableTokenExtension(name, symbol) {
+        uint256 maxSupply,
+        bool allowTransferBeforeUserExpired,
+        bool allowChangeUserBeforeUserExpired
+    )
+        DelegableTokenExtension(name, symbol)
+        DelegableTokenConfiguration(
+            allowTransferBeforeUserExpired,
+            allowChangeUserBeforeUserExpired
+        )
+    {
         _price = price;
         _maxSupply = maxSupply;
         _baseUri = baseUri;
