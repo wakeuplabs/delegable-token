@@ -1,6 +1,6 @@
 {
   "name": "@wakeuplabs/delegable-token",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "",
   "main": "typechain/index.ts",
   "scripts": {
@@ -13,7 +13,9 @@
     "typechain/*.ts",
     "typechain/**/*.ts",
     "artifacts/*",
-    "artifacts/**/*"
+    "artifacts/**/*",
+    "contracts/*",
+    "contracts/**/*"
   ],
   "repository": {
     "type": "git",

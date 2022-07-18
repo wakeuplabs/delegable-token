@@ -9,6 +9,8 @@ export const deployNFTContract = async (
 ) => {
   const nftContractFactory = new DelegableToken__factory(owner);
   const nftContract = await nftContractFactory.deploy(
+    "DelegableToken",
+    "DT721",
     "ipfs://test/",
     10,
     100,
