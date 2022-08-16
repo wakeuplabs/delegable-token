@@ -10,3 +10,4 @@ artifacts
 
 #ide
 .vscode
+contract-abi.json
