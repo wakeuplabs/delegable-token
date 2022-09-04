@@ -1,13 +1,14 @@
 /* eslint-disable camelcase */
 import { Signer } from "ethers";
-import { DelegableToken, DelegableToken__factory } from "../typechain";
+import { DelegableToken, DelegableTokenURIStorage } from "../typechain";
 
 export const deployNFTContract = async (
   owner: Signer,
   showLog: boolean = false,
-  allowChangeUserBeforeUserExpired: boolean = true
+  allowChangeUserBeforeUserExpired: boolean = true,
+  contractFactory: any
 ) => {
-  const nftContractFactory = new DelegableToken__factory(owner);
+  const nftContractFactory = new contractFactory(owner);
   const nftContract = await nftContractFactory.deploy(
     "DelegableToken",
     "DT721",
@@ -24,7 +25,10 @@ export const deployNFTContract = async (
   return nftContract;
 };
 
-export const mintNFT = async (nftContract: DelegableToken, price: number) => {
+export const mintNFT = async (
+  nftContract: DelegableToken | DelegableTokenURIStorage,
+  price: number
+) => {
   const mintTx = await nftContract.mint({ value: price });
 
   const nftIDReceipt = await mintTx.wait();

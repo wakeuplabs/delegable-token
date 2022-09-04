@@ -10,15 +10,15 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./ERC4907Extension.sol";
+import "../ERC4907/extensions/ERC4907ExtensionURIStorage.sol";
 import "./DelegableTokenConfiguration.sol";
 
-abstract contract DelegableTokenExtension is
-    ERC4907Extension,
+abstract contract DelegableTokenExtensionURIStorage is
+    ERC4907ExtensionURIStorage,
     DelegableTokenConfiguration
 {
     constructor(string memory name, string memory symbol)
-        ERC4907Extension(name, symbol)
+        ERC4907ExtensionURIStorage(name, symbol)
     {}
 
     function setUser(

@@ -10,9 +10,9 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
-import "./extensions/DelegableTokenExtension.sol";
+import "./extensions/DelegableTokenExtensionURIStorage.sol";
 
-contract DelegableToken is DelegableTokenExtension {
+contract DelegableTokenURIStorage is DelegableTokenExtensionURIStorage {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
@@ -29,7 +29,7 @@ contract DelegableToken is DelegableTokenExtension {
         bool allowTransferBeforeUserExpired,
         bool allowChangeUserBeforeUserExpired
     )
-        DelegableTokenExtension(name, symbol)
+        DelegableTokenExtensionURIStorage(name, symbol)
         DelegableTokenConfiguration(
             allowTransferBeforeUserExpired,
             allowChangeUserBeforeUserExpired
