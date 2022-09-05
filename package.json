@@ -1,8 +1,8 @@
 {
   "name": "@wakeuplabs/delegable-token",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "",
-  "main": "typechain/index.ts",
+  "main": "dist/typechain/index.js",
   "scripts": {
     "compile": "hardhat compile",
     "test": "hardhat test",
@@ -11,8 +11,8 @@
     "deploy-testnet-matic": "hardhat run --network matic scripts/deploy.ts"
   },
   "files": [
-    "typechain/*.ts",
-    "typechain/**/*.ts",
+    "dist/*",
+    "dist/**/*",
     "artifacts/*",
     "artifacts/**/*",
     "contracts/*",
