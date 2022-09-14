@@ -3,7 +3,10 @@ import { constants, Signer } from "ethers";
 import { ethers } from "hardhat";
 import chaiAsPromised from "chai-as-promised";
 import { deployNFTContract, mintNFT } from "../scripts/utils";
-import { DelegableToken, DelegableToken__factory } from "../typechain";
+import {
+  DelegableTokenURIStorage,
+  DelegableTokenURIStorage__factory,
+} from "../typechain";
 
 chai.use(chaiAsPromised);
 const expect = chai.expect;
@@ -17,11 +20,11 @@ const getTimestamp = async (addMinutes: number = 0) => {
   return timestamp + addMinutes * 60;
 };
 
-describe("DelegableToken", function () {
+describe("DelegableTokenURIStorage", function () {
   let owner: Signer, nftBuyer: Signer, user1: Signer, user2: Signer;
 
-  let nftContractAsBuyer: DelegableToken;
-  let nftContractAsOwner: DelegableToken;
+  let nftContractAsBuyer: DelegableTokenURIStorage;
+  let nftContractAsOwner: DelegableTokenURIStorage;
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
@@ -29,7 +32,7 @@ describe("DelegableToken", function () {
       owner,
       false,
       true,
-      DelegableToken__factory
+      DelegableTokenURIStorage__factory
     );
 
     nftContractAsBuyer = nftContractAsOwner.connect(nftBuyer);
@@ -187,11 +190,11 @@ describe("DelegableToken", function () {
   });
 });
 
-describe("DelegableToken allowChangeUserBeforeUserExpired=False", function () {
+describe("DelegableTokenURIStorage allowChangeUserBeforeUserExpired=False", function () {
   let owner: Signer, nftBuyer: Signer, user1: Signer, user2: Signer;
 
-  let nftContractAsBuyer: DelegableToken;
-  let nftContractAsOwner: DelegableToken;
+  let nftContractAsBuyer: DelegableTokenURIStorage;
+  let nftContractAsOwner: DelegableTokenURIStorage;
   this.beforeEach(async () => {
     [owner, nftBuyer, user1, user2] = await ethers.getSigners();
 
@@ -199,7 +202,7 @@ describe("DelegableToken allowChangeUserBeforeUserExpired=False", function () {
       owner,
       false,
       false,
-      DelegableToken__factory
+      DelegableTokenURIStorage__factory
     );
 
     nftContractAsBuyer = nftContractAsOwner.connect(nftBuyer);
