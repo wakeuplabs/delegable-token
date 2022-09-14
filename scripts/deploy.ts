@@ -1,4 +1,5 @@
 import { ethers } from "hardhat";
+import { DelegableToken__factory } from "../typechain";
 import { deployNFTContract } from "./utils";
 
 async function main() {
@@ -8,7 +9,7 @@ async function main() {
 
   console.log("Account balance:", (await owner.getBalance()).toString());
 
-  await deployNFTContract(owner, true);
+  await deployNFTContract(owner, true, true, DelegableToken__factory);
 }
 
 // We recommend this pattern to be able to use async/await everywhere
