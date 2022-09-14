@@ -41,7 +41,7 @@ contract DelegableTokenURIStorage is DelegableTokenExtensionURIStorage {
     }
 
     // @notice Mints new NFT to msg.sender
-    function mint() external payable returns (uint256) {
+    function mint() public payable returns (uint256) {
         require(_tokenIds.current() < _maxSupply, "reached max supply");
         require(msg.value == _price, "incorrect price");
 
@@ -52,24 +52,24 @@ contract DelegableTokenURIStorage is DelegableTokenExtensionURIStorage {
         return newItemId;
     }
 
-    function changeMaxSupply(uint256 maxSupply) external onlyOwner {
+    function changeMaxSupply(uint256 maxSupply) public onlyOwner {
         _maxSupply = maxSupply;
     }
 
-    function changePrice(uint256 price) external onlyOwner {
+    function changePrice(uint256 price) public onlyOwner {
         _price = price;
     }
 
-    function withdraw(address payable recipient) external onlyOwner {
+    function withdraw(address payable recipient) public onlyOwner {
         uint256 balance = address(this).balance;
         recipient.transfer(balance);
     }
 
-    function currentSupply() external view returns (uint256) {
+    function currentSupply() public view returns (uint256) {
         return _tokenIds.current();
     }
 
-    function changeBaseUri(string memory newBaseUri) external onlyOwner {
+    function changeBaseUri(string memory newBaseUri) public onlyOwner {
         _baseUri = newBaseUri;
     }
 
@@ -77,11 +77,11 @@ contract DelegableTokenURIStorage is DelegableTokenExtensionURIStorage {
         return _baseUri;
     }
 
-    function getPrice() external view returns (uint256) {
+    function getPrice() public view returns (uint256) {
         return _price;
     }
 
-    function getMaxSupply() external view returns (uint256) {
+    function getMaxSupply() public view returns (uint256) {
         return _maxSupply;
     }
 }

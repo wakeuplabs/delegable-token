@@ -24,26 +24,19 @@ abstract contract DelegableTokenConfiguration is Ownable {
         _allowChangeUserBeforeUserExpired = allowChangeUserBeforeUserExpired;
     }
 
-    function setAllowTransferBeforeUserExpired(bool value) external onlyOwner {
+    function setAllowTransferBeforeUserExpired(bool value) public onlyOwner {
         _allowTransferBeforeUserExpired = value;
     }
 
-    function setAllowChangeUserBeforeUserExpired(bool value)
-        external
-        onlyOwner
-    {
+    function setAllowChangeUserBeforeUserExpired(bool value) public onlyOwner {
         _allowChangeUserBeforeUserExpired = value;
     }
 
-    function getAllowTransferBeforeUserExpired() external view returns (bool) {
+    function getAllowTransferBeforeUserExpired() public view returns (bool) {
         return _allowTransferBeforeUserExpired;
     }
 
-    function getAllowChangeUserBeforeUserExpired()
-        external
-        view
-        returns (bool)
-    {
+    function getAllowChangeUserBeforeUserExpired() public view returns (bool) {
         return _allowChangeUserBeforeUserExpired;
     }
 }
