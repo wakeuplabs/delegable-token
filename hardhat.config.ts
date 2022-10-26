@@ -30,8 +30,8 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    matic: {
-      url: "https://rpc-mumbai.maticvigil.com",
+    mumbai: {
+      url: process.env.MUMBAI_URL || "https://rpc-mumbai.maticvigil.com",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },

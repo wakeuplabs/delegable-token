@@ -8,7 +8,8 @@
     "test": "hardhat test",
     "dev": "hardhat run --network localhost scripts/deploy.ts",
     "deploy-testnet": "hardhat run --network optimism_kovan scripts/deploy.ts",
-    "deploy-testnet-matic": "hardhat run --network matic scripts/deploy.ts",
+    "deploy-testnet-mumbai": "hardhat run --network mumbai scripts/deploy.ts",
+    "mint-testnet-mumbai": "hardhat run --network mumbai scripts/mintNFTs.ts",
     "npm:publish": "hardhat compile && npx tsc && npm publish"
   },
   "files": [
